@@ -37,7 +37,7 @@ func (conn *Connection) ReadMessage() (data []byte, err error) {
 		err = errors.New("connection is close")
 	}
 	if string(data[:]) == "close" {
-		conn.wsConn.Close()
+		conn.Close()
 	}
 	return
 }
@@ -55,7 +55,7 @@ func (conn *Connection) Close() {
 	//线程安全
 	conn.mutex.Lock()
 	if !conn.isCLose {
-		conn.Close()
+		conn.wsConn.Close()
 		conn.isCLose = true
 	}
 	conn.mutex.Unlock()
