@@ -36,9 +36,6 @@ func (conn *Connection) ReadMessage() (data []byte, err error) {
 	case <-conn.closeChan:
 		err = errors.New("connection is close")
 	}
-	if string(data[:]) == "close" {
-		conn.Close()
-	}
 	return
 }
 
