@@ -28,7 +28,7 @@ const (
 	pingPeriod = (pongWait * 9) / 10
 )
 
-func (c Client) TickTime() {
+func (c *Client) TickTime() {
 	for {
 		select {
 		case <-c.tick:
@@ -36,8 +36,8 @@ func (c Client) TickTime() {
 		case <-time.After(pingPeriod):
 			c.coon.outChan <- []byte("time out !")
 			time.Sleep(time.Second * 1)
-			c.coon.Close()
-			break
+			c.hub.unregister <- c
+			return
 		}
 	}
 }

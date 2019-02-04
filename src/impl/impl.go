@@ -53,6 +53,10 @@ func (conn *Connection) Close() {
 	conn.mutex.Lock()
 	if !conn.isCLose {
 		conn.wsConn.Close()
+		//第一次关闭读
+		conn.closeChan <- byte(1)
+		//第二次关闭写
+		conn.closeChan <- byte(1)
 		conn.isCLose = true
 	}
 	conn.mutex.Unlock()
