@@ -1,2 +1,5 @@
-# gows
-go搭建webSocket长连接
+go搭建千万级安全webSocket长连接
+
+特点：
+  1.线程安全
+  2.支持创建分组，组内群发信息
